@@ -156,6 +156,9 @@ class AttendeeDetail(ResourceDetail):
             else:
                 if obj.checkin_times and data['checkin_times'] not in obj.checkin_times.split(","):
                     data['checkin_times'] = '{},{}'.format(obj.checkin_times, data['checkin_times'])
+                if data['device_name_checkin'] not in obj.device_name_checkin.split(","):
+                    data['device_name_checkin'] = '{},{}'.format(obj.device_name_checkin, data['device_name_checkin'])
+
 
         if 'is_checked_out' in data and data['is_checked_out']:
             attendee = safe_query(db, TicketHolder, 'id', kwargs['id'], 'attendee_id')
