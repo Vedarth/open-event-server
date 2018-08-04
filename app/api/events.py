@@ -51,7 +51,8 @@ from app.models.track import Track
 from app.models.user import User, ATTENDEE, ORGANIZER, COORGANIZER
 from app.models.users_events_role import UsersEventsRoles
 from app.models.stripe_authorization import StripeAuthorization
-
+from pdb import set_trace as bp
+from app.api.schema.events_orga import EventOrgaSchema
 
 class EventList(ResourceList):
     def before_get(self, args, kwargs):
@@ -65,6 +66,7 @@ class EventList(ResourceList):
             self.schema = EventSchema
         else:
             self.schema = EventSchemaPublic
+
 
     def query(self, view_kwargs):
         """
@@ -403,6 +405,7 @@ class EventDetail(ResourceDetail):
         else:
             self.schema = EventSchemaPublic
 
+
     def before_get_object(self, view_kwargs):
         """
         before get method to get the resource id for fetching details
@@ -522,27 +525,6 @@ class EventCopyResource(ResourceList):
     methods = ['POST', ]
     data_layer = {'class': EventCopyLayer,
                   'session': db.Session}
-
-class EventOrgaSchema(Schema):
-    """
-    Schema for Orga Events - a minified version of Events for the Organizer App
-    """
-
-    class Meta:
-        type_ = 'event-orga'
-        inflect = dasherize
-        self_view = 'v1.events_orga_detail'
-        self_view_kwargs = {'id': '<id>'}
-
-    id = fields.Str(dump_only=True)
-    identifier = fields.Str(dump_only=True)
-    name = fields.Str(dump_only=True)
-    starts_at = fields.DateTime()
-    payment_currency = fields.Str()
-    tickets_available = fields.Str()
-    tickets_sold = fields.Number()
-    revenue = fields.Number()
-
 
 class EventOrgaResource(ResourceDetail):
     """

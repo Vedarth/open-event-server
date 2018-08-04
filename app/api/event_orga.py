@@ -5,8 +5,7 @@ from app.api.bootstrap import api
 from app.api.helpers.db import safe_query
 from app.api.schema.events_orga import EventOrgaSchema
 from app.models.event import Event
-from app.models.event_orga import EventOrgaModel
-
+from app.api.data_layers.EventOrgaLayer import EventOrgaLayer
 
 class EventOrgaDetail(ResourceDetail):
     """
@@ -31,7 +30,8 @@ class EventOrgaDetail(ResourceDetail):
 
     decorators = (api.has_permission('is_coorganizer', methods="GET"),)
     schema = EventOrgaSchema
-    data_layer = {'session': db.session,
+    data_layer = {'class': EventOrgaLayer,
+                  'session': db.session,
                   'model': Event,
                   'methods': {
                       'before_get_object': before_get_object
@@ -44,5 +44,6 @@ class EventOrgaRelationship(ResourceRelationship):
     """
     decorators = (api.has_permission('is_coorganizer', methods="GET"),)
     schema = EventOrgaSchema
-    data_layer = {'session': db.session,
-                  'model': EventOrgaModel}
+    data_layer = {'class': EventOrgaLayer,
+                  'session': db.session,
+                  'model': Event}

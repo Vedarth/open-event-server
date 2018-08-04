@@ -78,6 +78,7 @@ from app.api.admin_sales.discounted import AdminSalesDiscountedList
 from app.api.admin_sales.fees import AdminSalesFeesList
 from app.api.admin_sales.invoices import AdminSalesInvoicesList
 from app.api.full_text_search.events import EventSearchResultList
+from app.api.event_orga import EventOrgaRelationship
 
 # users
 api.route(UserList, 'user_list', '/users')
@@ -206,9 +207,8 @@ api.route(TicketTagRelationshipOptional, 'ticket_tag_ticket', '/ticket-tags/<int
 api.route(TicketTagRelationshipRequired, 'ticket_tag_event', '/ticket-tags/<int:id>/relationships/event')
 
 # events
-api.route(EventRelationship, 'events_orga', '/events/<int:id>/relationships/event-orga',
-          '/events/<identifier>/relationships/event-orga')
 api.route(EventOrgaResource, 'events_orga_detail', '/events/<identifier>/event-orga', '/events/<int:id>/event-orga')
+
 api.route(EventList, 'event_list', '/events', '/event-types/<int:event_type_id>/events',
           '/event-topics/<int:event_topic_id>/events',
           '/event-sub-topics/<int:event_sub_topic_id>/events', '/discount-codes/<int:discount_code_id>/events',
@@ -280,6 +280,7 @@ api.route(EventRelationship, 'event_orders', '/events/<int:id>/relationships/ord
           '/events/<identifier>/relationships/orders')
 api.route(EventRelationship, 'event_stripe_authorization', '/events/<int:id>/relationships/stripe-authorization',
           '/events/<identifier>/relationships/stripe-authorization')
+
 # Events -> roles:
 api.route(EventRelationship, 'event_organizers', '/events/<int:id>/relationships/organizers',
           '/events/<identifier>/relationships/organizers')
@@ -291,6 +292,7 @@ api.route(EventRelationship, 'event_moderators', '/events/<int:id>/relationships
           '/events/<identifier>/relationships/moderators')
 api.route(EventRelationship, 'event_registrars', '/events/<int:id>/relationships/registrars',
           '/events/<identifier>/relationships/registrars')
+
 
 # microlocations
 api.route(MicrolocationListPost, 'microlocation_list_post', '/microlocations')
