@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: e4311ef3ddf5
-Revises: 0044c9631c7e
+Revises: 699b64daa444
 Create Date: 2018-08-01 14:17:47.445218
 
 """
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = 'e4311ef3ddf5'
-down_revision = '0044c9631c7e'
+down_revision = '699b64daa444'
 
 
 def upgrade():
