@@ -63,6 +63,13 @@ class AttendeeListPost(ResourceList):
                 "Ticket already sold out"
             )
 
+        if len(data['checkin_times'].split(",")) != len(data['device_name_checkin'].split(",")):
+            raise UnprocessableEntity(
+                {'pointer': '/data/attributes/device_name_checkin'},
+                "Check in Time missing for the corresponding device name"
+            )
+
+
     decorators = (jwt_required,)
     methods = ['POST']
     schema = AttendeeSchema
@@ -156,6 +163,12 @@ class AttendeeDetail(ResourceDetail):
             else:
                 if obj.checkin_times and data['checkin_times'] not in obj.checkin_times.split(","):
                     data['checkin_times'] = '{},{}'.format(obj.checkin_times, data['checkin_times'])
+            if len(obj.checkin_times.split(",")) != len(obj.device_name_checkin.split(",")):
+                raise UnprocessableEntity(
+                    {'pointer': '/data/attributes/device_name_checkin'},
+                    "Check in time for the corresponding device name missing"
+                )
+            else:
                 if data['device_name_checkin'] not in obj.device_name_checkin.split(","):
                     data['device_name_checkin'] = '{},{}'.format(obj.device_name_checkin, data['device_name_checkin'])
 
