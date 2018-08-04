@@ -63,11 +63,12 @@ class AttendeeListPost(ResourceList):
                 "Ticket already sold out"
             )
 
-        if len(data['checkin_times'].split(",")) != len(data['device_name_checkin'].split(",")):
-            raise UnprocessableEntity(
-                {'pointer': '/data/attributes/device_name_checkin'},
-                "Check in Time missing for the corresponding device name"
-            )
+        if 'device_name_checkin' in data:
+            if len(data['checkin_times'].split(",")) != len(data['device_name_checkin'].split(",")):
+                raise UnprocessableEntity(
+                    {'pointer': '/data/attributes/device_name_checkin'},
+                    "Check in Time missing for the corresponding device name"
+                )
 
 
     decorators = (jwt_required,)
