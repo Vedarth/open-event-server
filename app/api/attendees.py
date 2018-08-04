@@ -163,6 +163,7 @@ class AttendeeDetail(ResourceDetail):
             else:
                 if obj.checkin_times and data['checkin_times'] not in obj.checkin_times.split(","):
                     data['checkin_times'] = '{},{}'.format(obj.checkin_times, data['checkin_times'])
+        if 'device_name_checkin' in data:
             if len(obj.checkin_times.split(",")) != len(obj.device_name_checkin.split(",")):
                 raise UnprocessableEntity(
                     {'pointer': '/data/attributes/device_name_checkin'},
