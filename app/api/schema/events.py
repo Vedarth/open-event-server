@@ -120,6 +120,13 @@ class EventSchemaPublic(SoftDeletionSchema):
                            schema='TicketSchemaPublic',
                            many=True,
                            type_='ticket')
+    event_orga = Relationship(attribute='events_orga',
+                              self_view='v1.events_orga',
+                              self_view_kwargs={'id': '<id>'},
+                              related_view='v1.event_orga_detail',
+                              related_view_kwargs={'event_id': '<id>'},
+                              schema='EventOrgaSchema',
+                              type='event-orga')
     faqs = Relationship(attribute='faqs',
                         self_view='v1.event_faqs',
                         self_view_kwargs={'id': '<id>'},
@@ -297,13 +304,7 @@ class EventSchema(EventSchemaPublic):
                                   related_view_kwargs={'event_id': '<id>'},
                                   schema='DiscountCodeSchema',
                                   type_='discount-code')
-    event_orga = Relationship(attribute='events_orga',
-                              self_view='v1.events_orga',
-                              self_view_kwargs={'id': '<id>'},
-                              related_view='v1.event_orga_detail',
-                              related_view_kwargs={'event_id': '<id>'},
-                              schema='EventOrgaSchema',
-                              type='event-orga')
+
     track_organizers = Relationship(attribute='track_organizers',
                                     self_view='v1.event_track_organizers',
                                     self_view_kwargs={'id': '<id>'},

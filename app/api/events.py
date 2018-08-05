@@ -493,7 +493,8 @@ class EventRelationship(ResourceRelationship):
     decorators = (api.has_permission('is_coorganizer', fetch="id", fetch_as="event_id",
                                      model=Event),)
     schema = EventSchema
-    data_layer = {'session': db.session,
+    data_layer = {'class': EventOrgaLayer,
+                  'session': db.session,
                   'model': Event,
                   'methods': {'before_get_object': before_get_object}
                   }

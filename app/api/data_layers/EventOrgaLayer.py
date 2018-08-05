@@ -8,7 +8,7 @@ from app.models.ticket import Ticket
 from app.models.ticket_holder import TicketHolder
 from flask_rest_jsonapi.data_layers.base import BaseDataLayer
 from flask_rest_jsonapi.exceptions import ObjectNotFound
-
+from marshmallow_jsonapi.flask import Relationship
 
 class EventOrgaLayer(BaseDataLayer):
 
@@ -56,3 +56,12 @@ class EventOrgaLayer(BaseDataLayer):
         # data['message'] = response
 
         return data
+
+    def get_relationship(self, res):
+        decorators = (api.has_permission('is_coorganizer', methods="GET"),)
+        schema = EventOrgaSchema
+        data_layer = {'class': EventOrgaLayer,
+                      'session': db.session,
+                      'model': Event}
+
+        return event_orga
