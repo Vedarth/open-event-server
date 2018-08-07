@@ -58,10 +58,6 @@ class EventOrgaLayer(BaseDataLayer):
         return data
 
     def get_relationship(self, res):
-        decorators = (api.has_permission('is_coorganizer', methods="GET"),)
-        schema = EventOrgaSchema
-        data_layer = {'class': EventOrgaLayer,
-                      'session': db.session,
-                      'model': Event}
 
-        return event_orga
+
+        return
