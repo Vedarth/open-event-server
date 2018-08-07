@@ -121,7 +121,8 @@ class EventList(ResourceList):
         if data.get('state', None) == 'published' and not is_verified:
             raise ForbiddenException({'source': ''},
                                      "Only verified accounts can publish events")
-        if not data.get('is_event_online') and data.get('state', None) == 'published' and not data.get('location_name', None):
+        if not data.get('is_event_online') and data.get('state', None) == 'published' \
+                and not data.get('location_name', None):
             raise ConflictException({'pointer': '/data/attributes/location-name'},
                                     "Location is required to publish the event")
 
@@ -464,7 +465,7 @@ class EventDetail(ResourceDetail):
             event.deleted_at = data.get('deleted_at')
 
         if 'is_event_online' not in data and event.is_event_online \
-            or 'is_event_online' in data and not data['is_event_online']:
+                or 'is_event_online' in data and not data['is_event_online']:
 
             if data.get('state', None) == 'published' and not data.get('location_name', None):
                 raise ConflictException({'pointer': '/data/attributes/location-name'},
